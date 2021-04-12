@@ -2,12 +2,21 @@ import {
   Selection,
   TextEditor,
   Range,
+  Window
 } from 'vscode'
 import {without} from 'ramda'
 import {InputBox} from './inputBox'
 import {Match, DocumentScanner} from './documentScanner'
 import {AssociationManager} from './associationManager'
 import {Association} from './association'
+
+const dim = Window.createTextEditorDecorationType({
+  color: '#777777',
+});
+
+const hide = Window.createTextEditorDecorationType({
+  color: 'transparent',
+});
 
 class Controller {
   static generateValidJumpChars: () => string[]
@@ -38,6 +47,14 @@ class Controller {
     this.textEditor = textEditor
     this.initiated = true
 
+    // Dim HERE
+    var firstLine = textEditor.document.lineAt(0);
+    var lastLine = textEditor.document.lineAt(textEditor.document.lineCount - 1);
+    var textRange = new Range(firstLine.range.start, lastLine.range.end);
+
+    this.textEditor.setDecorations(dim, [textRange]);
+
+
     this.inputBox = new InputBox({
       textEditor,
       onInputValueChange: this.handleInputValueChange,
@@ -62,10 +79,10 @@ class Controller {
       this.resetExtensionState()
       return
     }
-    
+
     this.displayNewJumpOptions(input)
   }
-  
+
   private displayNewJumpOptions = (input: string) => {
     this.updateJumpOptions(input)
 
@@ -90,7 +107,7 @@ class Controller {
 
   private setupDocumentScanner = (input: string) => {
     const {document, selection} = this.textEditor
-    
+
     this.documentScanner = new DocumentScanner(
       document,
       selection.end.line,
@@ -146,6 +163,10 @@ class Controller {
     this.resetJumpAssociations()
     this.resetSearchMetadata()
     this.inputBox.destroy()
+    // UNDIM HERE
+
+    this.textEditor.setDecorations(dim, []);
+    this.textEditor.setDecorations(hide, []);
   }
 }
 
