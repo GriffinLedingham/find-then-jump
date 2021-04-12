@@ -2,7 +2,7 @@ import {
   Selection,
   TextEditor,
   Range,
-  Window
+  window
 } from 'vscode'
 import {without} from 'ramda'
 import {InputBox} from './inputBox'
@@ -10,11 +10,11 @@ import {Match, DocumentScanner} from './documentScanner'
 import {AssociationManager} from './associationManager'
 import {Association} from './association'
 
-const dim = Window.createTextEditorDecorationType({
+const dim = window.createTextEditorDecorationType({
   color: '#777777',
 });
 
-const hide = Window.createTextEditorDecorationType({
+const hide = window.createTextEditorDecorationType({
   color: 'transparent',
 });
 
