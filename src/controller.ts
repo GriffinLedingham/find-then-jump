@@ -20,7 +20,7 @@ const hide = window.createTextEditorDecorationType({
 
 class Controller {
   static generateValidJumpChars: () => string[]
-    = () => [...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ']
+    = () => [...'hklyuiopnm,qwertzxcvbasdgjf;']
 
   textEditor: TextEditor | any
   inputBox: InputBox | any

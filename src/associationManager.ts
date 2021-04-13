@@ -3,7 +3,7 @@ import {
   TextEditor,
 } from 'vscode'
 
-import {Association} from './Association'
+import {Association} from './association'
 import {Match} from './documentScanner'
 
 export class AssociationManager {
@@ -14,7 +14,7 @@ export class AssociationManager {
   }
 
   public createAssociation = (
-    letter: string, 
+    letter: string,
     match: Match,
     textEditor: TextEditor
   ) => {
@@ -26,7 +26,7 @@ export class AssociationManager {
 
     textEditor.setDecorations(foreground, [foregroundRange])
     textEditor.setDecorations(background, [backgroundRange])
-    
+
     this.activeAssociations.set(letter, association)
   }
 
